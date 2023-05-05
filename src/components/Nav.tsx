@@ -1,8 +1,13 @@
 import logo from "../assets/img/logo.svg";
+import { useState } from "react";
 
 function Nav() {
+  const [isOpen, setIsOpen] = useState(false);
+  const MenuOpenHandler = () => {
+    setIsOpen(!isOpen);
+  };
   return (
-    <div className="container mx-auto p-6">
+    <div className="relative container mx-auto p-6">
       <div className="flex flex-row items-center justify-between">
         {/* Logo */}
         <div className="pt-2">
@@ -33,6 +38,44 @@ function Nav() {
         >
           Get Started
         </a>
+
+        {/* Hamburger Menu */}
+        <button
+          onClick={MenuOpenHandler}
+          className="block cursor-pointer w-[24px] h-[24px] relative md:hidden transition-all"
+        >
+          <span
+            className={`absolute top-[7px] left-0 w-full h-[2px] bg-black -translate-y-[7px]
+            ${isOpen ? "translate-y-[7px] rotate-45" : ""}
+          `}
+          ></span>
+          <span
+            className={`absolute top-[7px] left-0 w-full h-[2px] bg-black 
+            ${isOpen ? "hidden" : ""}       
+          `}
+          ></span>
+          <span
+            className={`absolute top-[7px] left-0 w-full h-[2px] bg-black translate-y-[7px]
+                ${isOpen ? "-translate-y-[7px] -rotate-45" : ""}         
+          `}
+          ></span>
+        </button>
+
+        {/* Mobile Menu */}
+        <div className="md:hidden">
+          <div
+            className={`absolute  flex-col items-center self-end py-8 mt-10 space-y-6 font-bold bg-white sm:w-auto sm:self-center left-6 right-6 drop-shadow-md
+                ${isOpen ? "flex" : "hidden"}
+  
+            `}
+          >
+            <a href="#">Pricing</a>
+            <a href="#">Products</a>
+            <a href="#">About</a>
+            <a href="#">Careers</a>
+            <a href="#">Community</a>
+          </div>
+        </div>
       </div>
     </div>
   );
